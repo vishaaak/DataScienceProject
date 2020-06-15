@@ -1,0 +1,1826 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Final\_Project\_Done}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Carbon Dioxide Emissions by Output vs. Oil Prices in North
+America}\label{carbon-dioxide-emissions-by-output-vs.-oil-prices-in-north-america}
+
+It has been well documented that carbon dioxide(CO2) emissions have
+increased as the United States industrialized in the 20th century to
+today. The United States has the world's largest economy and is the 2nd
+largest emitter of CO2 levels. In this notebook I will analyze the
+relationship between the United State's CO2 emissions and gross domestic
+product(GDP)/oil prices. The GDP is the value of all the final goods and
+services produced by a country. It indicates how much output a country
+produces in terms of money. I theorize beforehand that as GDP increases
+so will carbon emissions since the more output is created the more CO2
+produced by industries. I also theorize that as oil prices go down CO2
+levels will increase since it is cheaper to drive compared to taking
+public transportation. It will also be cheaper for industies to use oil
+for their production. I will be seeing if GDP or oil prices have a
+stronger relationship with CO2 emissions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}293}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+          \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{special} \PY{k}{import} \PY{n}{comb}
+          \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{spearmanr}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}321}]:} \PY{n}{GDP\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totalgdp.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{GDP\PYZus{}2010} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totalgdp10\PYZus{}20.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{GDP\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}   
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   Unnamed: 0                              Years   1947 1947.1 1947.2 1947.3  \textbackslash{}
+0         NaN                           Quarters     Q1     Q2     Q3     Q4   
+1         1.0             Gross domestic product  243.2    246  249.6  259.7   
+2         2.0  Personal consumption expenditures  156.2    160  163.5  167.7   
+3         3.0                              Goods   95.6   98.2  100.4  103.5   
+4         4.0                      Durable goods   20.7   21.4   21.8   23.5   
+
+    1948 1948.1 1948.2 1948.3   {\ldots}      2007.3    2008   2008.1   2008.2  \textbackslash{}
+0     Q1     Q2     Q3     Q4   {\ldots}          Q4      Q1       Q2       Q3   
+1  265.7  272.6  279.2  280.4   {\ldots}     14681.5   14651  14805.6  14835.2   
+2  170.4  174.1  177.1  177.9   {\ldots}      9877.8  9934.3  10052.8    10081   
+3  105.1  107.2  108.7  108.7   {\ldots}      3428.2  3406.4   3443.5   3427.9   
+4   23.5     24   25.3     25   {\ldots}      1195.6  1153.5   1137.7   1095.8   
+
+    2008.3     2009   2009.1   2009.2  2009.3     2010  
+0       Q4       Q1       Q2       Q3      Q4       Q1  
+1  14559.5  14394.5  14352.9  14420.3   14628  14721.4  
+2   9837.3   9756.1   9760.2   9895.4  9957.1  10040.5  
+3   3175.1     3120   3134.5   3228.5  3237.1   3266.2  
+4     1008   1004.5    994.7   1035.1  1014.2   1021.1  
+
+[5 rows x 255 columns]
+
+    \end{Verbatim}
+
+    \textbf{What are the observations (rows) and the attributes (columns)?}
+- The observations are the GDP by industry or sector and the first one
+is the culmination of all of them: the total GDP. This is only for the
+United States. The attributes are the years and quarters when each GDP
+report comes out. A report has been released four times every year since
+1947.
+
+\textbf{Why was this dataset created?} - This was created in order to
+analyze economic data. The Bureau of Economic Analysis releases reports
+on the United States progress and analyzes previous economic policies
+and their results to create new better economic models and policies.
+
+\textbf{Who funded the creation of the dataset?} - The Bureau of
+Economic Analysis created this data set. They use past data to create
+reports which the government uses for new or revised economic policies.
+The Bureau is a part of the US Department of Commerce.
+
+\textbf{What processes might have influenced what data was observed and
+recorded and what was not?} - GDP measures output of a certain country's
+industries. Foreign factories inside the US would also be counted as a
+part of the GDP but domestic firms with factories outside the US would
+not be counted in this calculation.
+
+\textbf{What preprocessing was done, and how did the data come to be in
+the form that you are using?} - The Bureau's website lets you download
+the data. However it is filled with empty rows and formatting issues. I
+used the Numbers application on my computer to get rid of the empty rows
+and made sure the columns and rows were aligned to their intended value.
+I exported it as a csv file. In the next block I created a new dataframe
+with the year and types of GDP as the columns and by year for the rows.
+This was so I could analyze the data more easily.
+
+\textbf{If people are involved, were they aware of the data collection
+and if so, what purpose did they expect the data to be used for?} - The
+data collected was output by industry, not by individuals. These
+industries are aware of the data collection since the government
+requests it. They expected the data to be used for economic policy.
+
+\textbf{Where can your raw source data be found, if applicable? Provide
+a link to the raw data.} - It can be found on the interactive data page
+on https://apps.bea.gov/iTable/index\_nipa.cfm. It is under the Gross
+Domestic Product and Personal Income page. It is section 1, table 1.1.5.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}322}]:} \PY{n}{years} \PY{o}{=} \PY{l+m+mf}{1947.3}
+          \PY{n}{US\PYZus{}GDP} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{US\PYZus{}Years} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{US\PYZus{}Service} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{US\PYZus{}Goods} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2010}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1947}\PY{p}{)}\PY{p}{:}
+              \PY{n}{US\PYZus{}GDP}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{GDP\PYZus{}data}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{years}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{n}{US\PYZus{}Service}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{GDP\PYZus{}data}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{years}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{n}{US\PYZus{}Goods}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{GDP\PYZus{}data}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{years}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{n}{years} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              
+          \PY{k}{for} \PY{n}{y2} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2020}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2010}\PY{p}{)}\PY{p}{:}
+              \PY{n}{US\PYZus{}GDP}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{GDP\PYZus{}2010}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{years}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{n}{US\PYZus{}Service}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{GDP\PYZus{}2010}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{years}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{n}{US\PYZus{}Goods}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{GDP\PYZus{}2010}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{years}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{n}{years} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              
+          \PY{n}{yr} \PY{o}{=} \PY{l+m+mi}{1947}
+          \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2020}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1947}\PY{p}{)}\PY{p}{:}
+              \PY{n}{US\PYZus{}Years}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{yr}\PY{p}{)}
+              \PY{n}{yr} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+          
+          \PY{n}{USGDP\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{US\PYZus{}Years}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{US\PYZus{}GDP}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Services}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{US\PYZus{}Service}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Goods}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{US\PYZus{}Goods}\PY{p}{\PYZcb{}}
+          \PY{n}{USGDP} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{USGDP\PYZus{}dict}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{USGDP}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   Year  Total GDP  Services  Goods
+0  1947      259.7     103.5   64.2
+1  1948      280.4     108.7   69.3
+2  1949      270.6     109.3   70.9
+3  1950      319.9     119.9   78.0
+4  1951      356.2     125.8   85.7
+
+    \end{Verbatim}
+
+    I created a new dataframe to make analyzing data easier. In this
+notebook I am only going to analyze total GDP and GDP by goods and
+services. I am also going to use GDP annually instead of by quarter
+since my other data sets are also annual. I used the fourth quarter GDP
+report between 1947 and 2019 as the annual GDP.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}318}]:} \PY{n}{oil\PYZus{}prices} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bpcrudeoil.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{oil\PYZus{}prices}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+         Date  Price in Contemporary Dollars  Price in 2018 Dollars
+0  2018-12-31                      71.310060              71.310060
+1  2017-12-31                      54.192440              55.516078
+2  2016-12-31                      43.734170              45.756816
+3  2015-12-31                      52.386759              55.501006
+4  2014-12-31                      98.946008             104.952501
+
+    \end{Verbatim}
+
+    \textbf{What are the observations (rows) and the attributes (columns)?}
+- The columns are the date, price in contemporary dollars, and price in
+2018 dollars. The date is December 31st, the last day of the year for
+every year. The oil prices are the average for the year. The rows are
+the average crude oil price in both 2018 dollars and in the dollar value
+adjusted for inflation.
+
+\textbf{Why was this dataset created?} - This was created to document
+the price of crude oil throughout the years. The creator, BP, created
+this dataset to publically showcase the price of oil from its inception
+and allow third parties to use it for their analysis.
+
+\textbf{Who funded the creation of the dataset?} - This dataset was
+created by British Petroleum, one of the largest oil companies in the
+world.
+
+\textbf{What processes might have influenced what data was observed and
+recorded and what was not?} - The value of a dollar may have inflated or
+deflated but the 2nd column takes that into account. The oil price data
+is only the average data which means there could have been some extreme
+outliers which may have skewed the data. Using the average oil price is
+reliable but it may have slight differences than a table with everyday
+oil prices.
+
+\textbf{What preprocessing was done, and how did the data come to be in
+the form that you are using?} - I downloaded the table from a website
+and I tweaked it in the Numbers application once again so that it would
+fit together nicely on my notebook. I exported it to my downloads folder
+as a csv file.\\
+\textbf{If people are involved, were they aware of the data collection
+and if so, what purpose did they expect the data to be used for?} -
+There were no individual people involved in this, just the price of oil
+determined by supply and demand. Since BP gave the data to a third party
+website, this data is for the public and third party analyzers. The
+people calculating the oil prices were in fact aware that this data
+would be recorded and used for analysis.
+
+\textbf{Where can your raw source data be found, if applicable? Provide
+a link to the raw data.} - I found the raw data on this website:
+https://www.quandl.com/data/BP/CRUDE\_OIL\_PRICES-Crude-Oil-Prices-from-1861.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}320}]:} \PY{n}{oil} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{oil\PYZus{}2018} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{time} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{start} \PY{o}{=} \PY{l+m+mi}{1900}
+          \PY{n}{dec} \PY{o}{=} \PY{l+m+mi}{118}
+          \PY{k}{for} \PY{n}{ev} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2019}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1900}\PY{p}{)}\PY{p}{:}
+              \PY{n}{oil}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{oil\PYZus{}prices}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Price in Contemporary Dollars}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{dec}\PY{p}{]}\PY{p}{)}
+              \PY{n}{oil\PYZus{}2018}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{oil\PYZus{}prices}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Price in 2018 Dollars}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{dec}\PY{p}{]}\PY{p}{)}
+              \PY{n}{time}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{start}\PY{p}{)}
+              \PY{n}{dec} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{start} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+          
+          \PY{n}{oil\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{time}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil Contemporary \PYZdl{}}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{oil}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil 2018 \PYZdl{}}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{oil\PYZus{}2018}\PY{p}{\PYZcb{}}
+          \PY{n}{oil\PYZus{}price} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{oil\PYZus{}dict}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{oil\PYZus{}price}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   Year  Oil Contemporary \$  Oil 2018 \$
+0  1900                1.19   35.772845
+1  1901                0.96   28.858766
+2  1902                0.80   23.124011
+3  1903                0.94   26.164390
+4  1904                0.86   23.937634
+
+    \end{Verbatim}
+
+    Again, I created a new dataframe to hold my data more efficiently for
+further analysis. I rearranged the data in an increasing order by year
+so it would go together much better with my other datasets. I limited
+the time period from 1900-2018.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}323}]:} \PY{n}{co2\PYZus{}emissions} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{co2kt.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{co2\PYZus{}emissions}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+  Country Name Country Code      1960      1961      1962      1963      1964  \textbackslash{}
+0        Aruba          ABW       NaN       NaN       NaN       NaN       NaN   
+1  Afghanistan          AFG   414.371   491.378   689.396   707.731   839.743   
+2       Angola          AGO   550.050   454.708  1180.774  1151.438  1224.778   
+3      Albania          ALB  2024.184  2280.874  2464.224  2082.856  2016.850   
+4      Andorra          AND       NaN       NaN       NaN       NaN       NaN   
+
+       1965      1966      1967     {\ldots}            2011       2012       2013  \textbackslash{}
+0       NaN       NaN       NaN     {\ldots}        2500.894   1349.456    861.745   
+1  1008.425  1092.766  1283.450     {\ldots}       12240.446  10755.311  10014.577   
+2  1188.108  1554.808   993.757     {\ldots}       30340.758  33399.036  32617.965   
+3  2174.531  2552.232  2680.577     {\ldots}        5240.143   4910.113   5064.127   
+4       NaN       NaN       NaN     {\ldots}         491.378    487.711    476.710   
+
+        2014  2015  2016  2017  2018  2019  Unnamed: 62  
+0    872.746   NaN   NaN   NaN   NaN   NaN          NaN  
+1   9809.225   NaN   NaN   NaN   NaN   NaN          NaN  
+2  34763.160   NaN   NaN   NaN   NaN   NaN          NaN  
+3   5716.853   NaN   NaN   NaN   NaN   NaN          NaN  
+4    462.042   NaN   NaN   NaN   NaN   NaN          NaN  
+
+[5 rows x 63 columns]
+
+    \end{Verbatim}
+
+    \textbf{What are the observations (rows) and the attributes (columns)?}
+- The observations are each country, economic and geographical regions,
+and groups of countries by income and developemnt, and their respective
+carbon dioxide emissions. The attributes are the years recorded from
+1960 to 2014.
+
+\textbf{Why was this dataset created?} - This dataset was created by the
+World Bank to track the carbon emissions from each country and region.
+The world bank collects data on hundreds of issues on every country in
+order to document and analyze data. The dataset was created so analysts
+and scientists working for the world bank can have easy access to data
+for every country as well as the public.
+
+\textbf{Who funded the creation of the dataset?} - I found the data on
+the website for the World Bank, but it was created by the Carbon Dioxide
+Information Analysis Center, Oak Ridge National Laboratory. The World
+Bank collected this data from the laboratory and published it separately
+on its own website.
+
+\textbf{What processes might have influenced what data was observed and
+recorded and what was not?} - There is a lot of missing data labelled as
+NaN. This is especially true for undeveloped countries or countries at
+war during a certain time period. Some countries did not start recording
+data until a certain year. It is also missing data for most countries
+after 2014. The time period recorded is 1960 to 2014.
+
+\textbf{What preprocessing was done, and how did the data come to be in
+the form that you are using?} - I downloaded a table from the World Bank
+website and I used the numbers app to clean up missing/extra rows and
+columns. I took out several unneeded columns. I exported to my downloads
+as a csv file.
+
+\textbf{If people are involved, were they aware of the data collection
+and if so, what purpose did they expect the data to be used for?} - This
+was CO2 emissions and did not rely on individual people. However, the
+lab that did collect this data is aware that people will use this data
+for future analysis and public use. The World Bank is also aware which
+is why they published it publically in the first place.
+
+\textbf{Where can your raw source data be found, if applicable? Provide
+a link to the raw data (hosted in a Cornell Google Drive or Cornell
+Box).} - I found it on this website:
+https://data.worldbank.org/indicator/EN.ATM.CO2E.KT?end=2014\&start=1960\&view=chart.
+I dounloaded the table to my numbers app to clean it up.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}325}]:} \PY{n}{ano} \PY{o}{=} \PY{l+m+mi}{1960}
+          \PY{n}{US\PYZus{}co2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{date} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2015}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1960}\PY{p}{)}\PY{p}{:}
+              \PY{n}{US\PYZus{}co2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{co2\PYZus{}emissions}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{ano}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{249}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ano} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              
+          \PY{n}{ano} \PY{o}{=} \PY{l+m+mi}{1960}  
+          \PY{n}{NA\PYZus{}co2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{dat} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2015}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1960}\PY{p}{)}\PY{p}{:}
+              \PY{n}{NA\PYZus{}co2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{co2\PYZus{}emissions}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{ano}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{168}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ano} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              
+          \PY{n}{ano} \PY{o}{=} \PY{l+m+mi}{1960}   
+          \PY{n}{HI\PYZus{}co2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{da} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2015}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1960}\PY{p}{)}\PY{p}{:}
+              \PY{n}{HI\PYZus{}co2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{co2\PYZus{}emissions}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{ano}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{93}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ano} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              
+          \PY{n}{dates} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{dtz} \PY{o}{=} \PY{l+m+mi}{1960}
+          
+          \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2015}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1960}\PY{p}{)}\PY{p}{:}
+              \PY{n}{dates}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{dtz}\PY{p}{)}
+              \PY{n}{dtz} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+              
+          \PY{n}{emissions\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{dates}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{US\PYZus{}co2}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{North America}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{NA\PYZus{}co2}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Income Countries}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{HI\PYZus{}co2}\PY{p}{\PYZcb{}}
+          \PY{n}{emissions} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{emissions\PYZus{}dict}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{emissions}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   Year          USA  North America  High Income Countries
+0  1960  2890696.100    3083748.982           5.713366e+06
+1  1961  2880505.507    3074863.841           5.838410e+06
+2  1962  2987207.873    3194551.054           6.109990e+06
+3  1963  3119230.874    3330490.411           6.452882e+06
+4  1964  3255995.306    3493998.274           6.782011e+06
+
+    \end{Verbatim}
+
+    I created a new dataframe so I can be more efficient. I switched the
+columns and rows so that it would be more in line with my other
+datasets. The columns I chose were the CO2 emissions for the USA, North
+America, and high income countries. The emissions are recorded in
+kilotons.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}334}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{North America}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total North American Emissions and US Emissions (CO2 in kt)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{US CO2 Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{North American CO2 Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{coeff} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{North America}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{rank} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{North America}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The correlation coefficient for CO2 emissions between the US and North America is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{coeff}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{and the }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{rank coefficient is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rank}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Income Countries}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Income Countries Emissions and US Emissions (CO2 in kt)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{US CO2 Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HIC CO2 Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ticklabel\PYZus{}format}\PY{p}{(}\PY{n}{style} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{plain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{coeff2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Income Countries}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{rank2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Income Countries}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The correlation coefficient for CO2 emissions between the US and HIC is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{coeff2}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{and the }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{rank coefficient is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rank2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The correlation coefficient for CO2 emissions between the US and North America is 0.9996955649942284 and the 
+rank coefficient is 0.998773448773449
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The correlation coefficient for CO2 emissions between the US and HIC is 0.9893051064374387 and the 
+rank coefficient is 0.9815295815295818
+
+    \end{Verbatim}
+
+    \textbf{US CO2 Influence on North American and Developed Countries}
+
+A high income country is defined by the World Bank as country with a
+gross national income that is higher than \$12,056. The correlation
+between the CO2 emissions created by the United States and North America
+is nearly identical. The coefficient is very high between the US and
+HIC. The coefficients are also very close to 1 (perfect positive
+correlation) for both graphs. One conclusion we can draw from this is
+that the influence of American CO2 emissions is extremely high in both
+North America and HIC. However, the US emissions only accounts for a
+third of the raw value of emissions in kt of HIC. So while the US does
+play a large role in the CO2 emissions in HIC, another factor in this
+correlation is that most other HIC countries also increased CO2
+emissions as time went on from 1960. However, it is evident that the US
+is behind most of the emissions for North America even if Canada and
+Mexico's emissions also increased.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}336}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Goods}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Services}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{US Nominal GDP 1947\PYZhy{}2019}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP in Billions of Dollars}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{teal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{North America}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{salmon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions USA and North America 1960\PYZhy{}2014}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Emissions in kt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil Contemporary \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil 2018 \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil Prices 1900\PYZhy{}2018}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average Crude Oil Price per Barrel in \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{US GDP:}
+
+The total GDP for the United States has been increasing quickly since
+1947. Goods and services as a part of GDP were very close to each other
+until the 1980s where they split apart with goods producing more GDP in
+billions of dollars.
+
+\textbf{North American CO2 Emissions:}
+
+Both of the emissions lines for the USA and North America seem to mirror
+each other closely. This can easily be explained because the United
+States produces the second most CO2 in the world. Its large influence is
+evident by how similiar the two graphs look to each other.
+
+\textbf{Crude Oil Prices:}
+
+The oil prices chart is interesting because the oil prices adjusted to
+2018 dollars show a different story than oil prices by contemporary
+prices. Both of them come together closer as they each 2018 and the
+effects of inflation wane. But in the first half every small disturbance
+in the line of contemporary oil prices can be seen as a larger
+disturbance by the line of oil prices using 2018 dollars. Using oil
+prices by 2018 dollars would probably be more accurate since it is
+adjusted for inflation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}340}]:} \PY{n}{log\PYZus{}gdp} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{log\PYZus{}service} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{log\PYZus{}goods} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{n}{log\PYZus{}oil1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{log\PYZus{}oil2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{n}{log\PYZus{}us} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{log\PYZus{}na} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{x1} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{log\PYZus{}gdp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{log\PYZus{}service}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Services}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{log\PYZus{}goods}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Goods}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{x2} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil 2018 \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{log\PYZus{}oil1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil 2018 \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x2}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{log\PYZus{}oil2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil Contemporary \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x2}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{x3} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{log\PYZus{}us}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x3}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{log\PYZus{}na}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{North America}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x3}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{log\PYZus{}gdp}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{log\PYZus{}service}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Services}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{log\PYZus{}goods}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Goods}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{US Nominal GDP 1947\PYZhy{}2019}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rate of GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{log\PYZus{}us}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{teal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{log\PYZus{}na}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{salmon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{North America}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions USA and North America 1960\PYZhy{}2014}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rate of Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{log\PYZus{}oil2}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil Contemporary \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{log\PYZus{}oil1}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil 2018 \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil Prices 1900\PYZhy{}2018}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rate of Prices}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+              
+              
+              
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In this section I used logarithms to better show percent change and
+identify any other patterns. A lot of the values I used were extremely
+large so I thought this would be a good fit.
+
+\textbf{US GDP:}
+
+The total US GDP is indicitative of exponential growth. The GDP of goods
+appears to follow a very similiar slope. The growth rate of goods of a
+part of GDP surpasses services around the late 1960s and early 1970s.
+This is very interesting because this time period was known for the
+decline of the manufacturing industry. But it seems like this is when
+final goods created produced more output in terms of dollars than
+service.
+
+\textbf{North American CO2 Emissions:}
+
+Both of the emissions lines for the USA and North America seem to mirror
+each other closely again. The main reason being that the US emissions
+(and GDP) make a significant fraction of all of North America.
+
+\textbf{Crude Oil Prices:}
+
+Again, the two lines close in on each other as they get closer to 2018.
+Adjusted for inflation (2018 \$), oil prices have much less impressive
+growth from 1900 to 2018. That "growth" in the graph can be attributed
+to inflation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}341}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The Great Recession (2007\PYZhy{}2009)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{ears} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{un} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+              \PY{n}{ears}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{un} \PY{o}{+} \PY{l+m+mi}{2006}\PY{p}{)}
+              
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ears}\PY{p}{,} \PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{59}\PY{p}{:}\PY{l+m+mi}{64}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{US NOMINAL GDP DURING THE GREAT RECESSION}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP (Billions of \PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ears}\PY{p}{,} \PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil Contemporary \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{106}\PY{p}{:}\PY{l+m+mi}{111}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{teal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CRUDE OIL PRICES DURING THE GREAT RECESSION}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average Price of Oil (per Barrel)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ears}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{46}\PY{p}{:}\PY{l+m+mi}{51}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{US CO2 EMISSIONS DURING THE GREAT RECESSION}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 EMISSIONS (kt)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The Great Recession (2007-2009)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    On the surface it may appear that the Great Recession caused a decline
+in GDP, oil prices, and CO2 emissions all at once. But it is unclear if
+the drop in CO2 was a result of the drop in oil prices of GDP, or both.
+There are only five points in these graphs, so the conclusions gathered
+analyzing this may be inaccurate so I used the time frame from 1960 to
+2014 instead.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}537}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 EMISSIONS AND GDP:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{place} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{holder} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{pl} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{hr} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{x4} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2015}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1960}\PY{p}{)}\PY{p}{:}
+              \PY{n}{place}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x4} \PY{o}{+} \PY{l+m+mi}{13}\PY{p}{]}\PY{p}{)}
+              \PY{n}{holder}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x4}\PY{p}{]}\PY{p}{)}
+              \PY{n}{pl}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Services}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x4}\PY{p}{]}\PY{p}{)}
+              \PY{n}{hr}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Goods}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x4}\PY{p}{]}\PY{p}{)}
+             
+          \PY{n}{gdpco2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{place}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{holder}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GOODS}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{hr}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SERVICES}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{pl}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Mean GDP:   \PYZdl{}}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Billion}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Median GDP: \PYZdl{}}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Billion}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Standard Deviation: \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Billion}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Variance: \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Billion}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Mean Emissions:}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Median Emissions: \PYZdl{}}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Standard Deviation: \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Variance: \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CO2 EMISSIONS AND GDP:
+
+
+Mean GDP:   \$ 6466 Billion
+Median GDP: \$ 5008 Billion
+Standard Deviation: \$ 5332 Billion
+Variance: \$ 28427181 Billion
+
+Mean Emissions: 4723442 kt
+Median Emissions: \$ 4823403 kt
+Standard Deviation: \$ 780617 kt
+Variance: \$ 609362994284 kt
+
+    \end{Verbatim}
+
+    The main thing that stood out was the large standard deviation and
+variance for GDP. This is due to the fact that GDP increased
+exponentially from the 1940s to current day. While the mean and median
+are insightful figures they are not that valuable in comparing the
+relationship between CO2 emissions and GDP yet.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}761}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{brown}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{United States CO2 Emissions and GDP 1960\PYZhy{}2014}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP (Billions of \PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions (kt)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{brown}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{United States CO2 Emissions and GDP 1960\PYZhy{}2014}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP (Billions of \PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions (kt)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{cf} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{rank\PYZus{}cf} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cf}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rank/Spearman Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rank\PYZus{}cf}\PY{p}{)}
+          
+          \PY{n}{model1} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{model1}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The slope of the linear regression is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model1}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The intercept of the linear regression is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model1}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The r\PYZca{}2 value of emissions given GDP is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model1}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Correlation: 0.7865564370186544
+Rank/Spearman Correlation: 0.9063492063492066
+The slope of the linear regression is: 115.15983316405426
+The intercept of the linear regression is: 3978815.4001297136
+The r\^{}2 value of emissions given GDP is: 0.6186710286154812
+
+    \end{Verbatim}
+
+    There appears to be a strong correlation between CO2 emissions from the
+United States and its GDP. When I used the rank/Spearman correlation to
+account for the monotonic relationship the association becomes more
+evident. The Spearman correlation is close to 1 (a perfect
+relationship). As GDP increased so did emissions. The r\^{}2 value also
+indicates a relationship between the two. The value is large and it
+means that the model can explain the variation around the mean very
+well.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}362}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GOODS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{orange}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Goods}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SERVICES}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{salmon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Services}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{United States CO2 Emissions and GDP of Goods 1960\PYZhy{}2014}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP of Goods (Billions of \PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions (kt)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{coef} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GOODS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{rcf} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GOODS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n}{coef2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SERVICES}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{rcf2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SERVICES}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Goods and CO2 Emission Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{coef}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Services and CO2 Emission Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{coef2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Goods and CO2 Emission Rank Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rcf}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Services and CO2 Emission Rank Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rcf2}\PY{p}{)}
+          
+          \PY{n}{modelg} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{modelg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GOODS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{models} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{models}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SERVICES}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The r\PYZca{}2 value of emissions given GDP of Goods is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{modelg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GOODS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The r\PYZca{}2 value of emissions given GDP of Services is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{models}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SERVICES}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Goods and CO2 Emission Correlation: 0.6817940920891122
+Services and CO2 Emission Correlation: 0.7254632187797874
+Goods and CO2 Emission Rank Correlation: 0.9049783549783552
+Services and CO2 Emission Rank Correlation: 0.9046897546897549
+The r\^{}2 value of emissions given GDP of Goods is: 0.4648431840076168
+The r\^{}2 value of emissions given GDP of Services is: 0.5262968818023299
+
+    \end{Verbatim}
+
+    GDP from services has a slightly stronger correlation, however both
+services and goods have nearly indentical rank correlations. Their rank
+correlation is a strong indication of a relationship. However, their
+r\^{}2 values are not as high as total GDP. This may because the
+relationship is more exponential than linear.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}449}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 EMISSIONS AND OIL PRICES}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{place1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{holder1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{x5} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2015}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1960}\PY{p}{)}\PY{p}{:}
+              \PY{n}{place1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil 2018 \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x5} \PY{o}{+} \PY{l+m+mi}{60}\PY{p}{]}\PY{p}{)}
+              \PY{n}{holder1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x5}\PY{p}{]}\PY{p}{)}
+              
+          \PY{n}{oilco2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{place1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{holder1}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Mean Oil Price:   \PYZdl{}}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Median Oil Price: \PYZdl{}}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Standard Deviation: \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Variance: \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CO2 EMISSIONS AND OIL PRICES
+
+Mean Oil Price:   \$ 49.76
+Median Oil Price: \$ 36.91
+Standard Deviation: \$ 33.87
+Variance: \$ 1147.14
+
+    \end{Verbatim}
+
+    The main thing that stood out here was that the standard deviation for
+oil prices was high compared to the mean and median. Oil prices must
+have been volatile in the last century. I used oil in 2018 dollars in
+this analysis to account for inflation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}450}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{olivedrab}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{United States CO2 Emissions and Oil Price 1960\PYZhy{}2014}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Crude Oil Price (per Barrel)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions (kt)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{cf2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{rank\PYZus{}cf2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cf2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rank Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rank\PYZus{}cf2}\PY{p}{)}
+          
+          \PY{n}{model2} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{model2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The slope of the linear regression is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model2}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The intercept of the linear regression is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model2}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The r\PYZca{}2 value of emissions given oil price is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model2}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Correlation: 0.45603134645241233
+Rank Correlation: 0.49119769119769124
+The slope of the linear regression is: 10510.542073185374
+The intercept of the linear regression is: 4200469.956264106
+The r\^{}2 value of emissions given oil price is: 0.20796458894720027
+
+    \end{Verbatim}
+
+    The correlation and rank correlation are close to each other. There
+appears to be a very weak relationship if any. The r\^{}2 value also
+very low to the point that the model indicates that there really is not
+a relationship. The correlation is less reliable and can have occured
+through chance. I will explore this later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}769}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL PRICES AND US GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{place2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{holder2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{x5} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2018}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1947}\PY{p}{)}\PY{p}{:}
+              \PY{n}{place2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil Contemporary \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x5} \PY{o}{+} \PY{l+m+mi}{47}\PY{p}{]}\PY{p}{)}
+              \PY{n}{holder2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x5}\PY{p}{]}\PY{p}{)}
+              
+          \PY{n}{gdpoil} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{place2}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{holder2}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{gdpoil}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpoil}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{purple}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{US GDP and Oil Prices}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP (Billions of \PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Crude Oil Price (per Barrel)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{model3} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{model3}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{gdpoil}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{gdpoil}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{cf0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpoil}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpoil}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{rank\PYZus{}cf0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpoil}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{gdpoil}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cf0}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rank Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rank\PYZus{}cf0}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The slope of the linear regression is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model3}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The intercept of the linear regression is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model3}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The r\PYZca{}2 value of emissions given GDP is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model3}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{gdpoil}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{gdpoil}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OIL PRICES AND US GDP
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Correlation: 0.8466113928364356
+Rank Correlation: 0.8888638270042665
+The slope of the linear regression is: 0.004154271155015667
+The intercept of the linear regression is: 0.12672985623430577
+The r\^{}2 value of emissions given GDP is: 0.7167508504804494
+
+    \end{Verbatim}
+
+    It would seem like there is a strong correlation between US GDP and oil
+prices. The r\^{}2 value is also high and could possibly mean that this
+model is right. The slope and intercept are not very useful(at first
+glance) in the bigger picture because the units are very different in
+size and meaning.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}768}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL PRICES AND US GDP (ADJUSTED)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{place0} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{holder0} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{x6} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2018}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1947}\PY{p}{)}\PY{p}{:}
+              \PY{n}{place0}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{oil\PYZus{}price}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Oil 2018 \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x6} \PY{o}{+} \PY{l+m+mi}{47}\PY{p}{]}\PY{p}{)}
+              \PY{n}{holder0}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{x6}\PY{p}{]}\PY{p}{)}
+              
+          \PY{n}{gdpoil2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{place0}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{holder0}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{gdpoil2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpoil2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{purple}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{US GDP and Oil Prices}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP (Billions of \PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Crude Oil Price (per Barrel)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{model40} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{model40}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{gdpoil2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{gdpoil2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{cf01} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpoil2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpoil2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{rank\PYZus{}cf01} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpoil2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{gdpoil2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cf01}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rank Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rank\PYZus{}cf01}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The slope of the linear regression is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model40}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The intercept of the linear regression is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model40}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The r\PYZca{}2 value of emissions given GDP is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model40}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{gdpoil2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{gdpoil2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OIL PRICES AND US GDP (ADJUSTED)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Correlation: 0.6022181640035859
+Rank Correlation: 0.6964453386988597
+The slope of the linear regression is: 0.003274413870873771
+The intercept of the linear regression is: 24.804536684317537
+The r\^{}2 value of emissions given GDP is: 0.3626667170558495
+
+    \end{Verbatim}
+
+    After I adjusted the oil prices for inflation, the correlations and
+r\^{}2 value both became weaker. While the correlation is still strong,
+the r\^{}2 appears to indicate that this model does not fit the data as
+well as I previously thought. Both these graphs do indirectly indicate
+high inflation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}770}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The mean of emissions from the USA is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The standard deviation of emissions from the USA is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{fake\PYZus{}emissions} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fake\PYZus{}emissions}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fake Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Real Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fake Emissions created by Mean and STD of Real Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions (kt)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fake\PYZus{}emissions}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fake}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Real}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{United States CO2 Emissions and GDP 1960\PYZhy{}2014}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP (Billions of \PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions (kt)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{f\PYZus{}e} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{fake\PYZus{}emissions}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{n}{c\PYZus{}} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fake\PYZus{}emissions}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{rf1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{f\PYZus{}e}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{c\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rank/Spearman Correlation:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rf1}\PY{p}{)}
+          
+          \PY{n}{model\PYZus{}} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{model\PYZus{}}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{f\PYZus{}e}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The slope of the linear regression is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model\PYZus{}}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The intercept of the linear regression is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model\PYZus{}}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The r\PYZca{}2 value of emissions given GDP is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model\PYZus{}}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{f\PYZus{}e}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}   
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The mean of emissions from the USA is: 4723442 kt
+The standard deviation of emissions from the USA is: 787812 kt
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Correlation: -0.027164883767460925
+Rank/Spearman Correlation: -0.06277056277056278
+The slope of the linear regression is: -3.2904391055305235
+The intercept of the linear regression is: 4755519.665593067
+The r\^{}2 value of emissions given GDP is: 0.0007379309100999931
+
+    \end{Verbatim}
+
+    There is a large contingent of people who deny climate change and
+believe that the data does not show a link between
+output/industrialization and CO2 emissions. In this part I created a
+dataset of fake emissions by creating a normal distribution with the
+mean and standard deviation of the real emission dataset. The fake
+dataset has almost no correlation and the little bit it has is negative
+unlike the real dataset. The r\^{}2 also shows that this fake model does
+not explain any of the variation around the mean. This further
+legitimizes the strong relationship between GDP and CO2 emissions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}433}]:} \PY{n}{fake} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{value} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+              \PY{n}{fake}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fake}\PY{p}{[}\PY{n}{value}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{100 Fake Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Years}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions by kt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{aunit} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fake}\PY{p}{[}\PY{n}{aunit}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{100 Fake Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions by kt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{highest\PYZus{}c} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n}{highest\PYZus{}r} \PY{o}{=} \PY{l+m+mi}{0}
+          
+          \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+              \PY{n}{new\PYZus{}c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fake}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{fe} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{fake}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{n}{new\PYZus{}r} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{fe}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{k}{if}\PY{p}{(}\PY{n}{new\PYZus{}c} \PY{o}{\PYZgt{}} \PY{n}{highest\PYZus{}c}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{highest\PYZus{}c} \PY{o}{=} \PY{n}{new\PYZus{}c}
+              \PY{k}{if}\PY{p}{(}\PY{n}{new\PYZus{}r} \PY{o}{\PYZgt{}} \PY{n}{highest\PYZus{}r}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{highest\PYZus{}r} \PY{o}{=} \PY{n}{new\PYZus{}r}
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The highest correlation in 100 fake samples to GDP is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{highest\PYZus{}c}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The highest rank correlation in 100 fake samples to GDP is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{highest\PYZus{}r}\PY{p}{)} 
+          
+          \PY{n}{fake1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{highest\PYZus{}c2} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n}{highest\PYZus{}r2} \PY{o}{=} \PY{l+m+mi}{0}
+          
+          \PY{k}{for} \PY{n}{value} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{:}
+              \PY{n}{fake1} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{new\PYZus{}c2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fake1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{fake2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{fake1}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{n}{new\PYZus{}r2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{fake2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{k}{if}\PY{p}{(}\PY{n}{new\PYZus{}r2} \PY{o}{\PYZgt{}} \PY{n}{highest\PYZus{}r2}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{highest\PYZus{}r2} \PY{o}{=} \PY{n}{new\PYZus{}r2}
+              \PY{k}{if}\PY{p}{(}\PY{n}{new\PYZus{}c2} \PY{o}{\PYZgt{}} \PY{n}{highest\PYZus{}c2}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{highest\PYZus{}c2} \PY{o}{=} \PY{n}{new\PYZus{}c2}
+                  
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The highest correlation in 10000 fake samples to GDP is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{highest\PYZus{}c2}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The highest rank correlation in 10000 fake samples to GDP is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{highest\PYZus{}r2}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The highest correlation in 100 fake samples to GDP is: 0.27530417189360323
+The highest rank correlation in 100 fake samples to GDP is: 0.2687590187590188
+The highest correlation in 10000 fake samples to GDP is: 0.42185492963767274
+The highest rank correlation in 10000 fake samples to GDP is: 0.45555555555555566
+
+    \end{Verbatim}
+
+    I tried finding the correlation and rank correlation for a 100 and 10000
+fake emission datasets created by the mean and standard deviation of the
+real emissions dataset. None of them were higher than 0.5. The
+correlation for the real emissions dataset is 0.78 and the rank
+correlation is 0.90. It is clear that CO2 emissions are not random
+compared to GDP. If they were, it would have been a very astronomical
+chance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}774}]:} \PY{n}{top\PYZus{}c} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n}{top\PYZus{}r} \PY{o}{=} \PY{l+m+mi}{0}
+          
+          \PY{k}{for} \PY{n}{base} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{:}
+              \PY{n}{f1} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{n\PYZus{}c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{f1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{f2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{f1}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{n}{n\PYZus{}r} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{f2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{k}{if}\PY{p}{(}\PY{n}{n\PYZus{}r} \PY{o}{\PYZgt{}} \PY{n}{top\PYZus{}r}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{top\PYZus{}r} \PY{o}{=} \PY{n}{n\PYZus{}r}
+              \PY{k}{if}\PY{p}{(}\PY{n}{n\PYZus{}c} \PY{o}{\PYZgt{}} \PY{n}{top\PYZus{}c}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{top\PYZus{}c} \PY{o}{=} \PY{n}{n\PYZus{}c}
+                  
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The highest correlation in 10000 fake samples to real emissions is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{top\PYZus{}c}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The highest rank correlation in 10000 fake samples to real emissions is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{top\PYZus{}r}\PY{p}{)}
+              
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The highest correlation in 10000 fake samples to real emissions is: 0.4819557735903335
+The highest rank correlation in 10000 fake samples to real emissions is: 0.4544011544011545
+
+    \end{Verbatim}
+
+    In this I compared the fake emissions to real emissions. Again both the
+correlations do not rise past 0.50. It becomes more and more likely that
+GDP does impact emissions. The fake samples are no way similar to the
+real dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}781}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The mean oil price is: \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The standard deviation of oil prices is: \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{fake\PYZus{}oil} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{new\PYZus{}yr} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{plhr} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2015}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1960}\PY{p}{)}\PY{p}{:}
+              \PY{n}{new\PYZus{}yr}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{plhr} \PY{o}{+} \PY{l+m+mi}{1960}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{value} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{:}
+              \PY{n}{fake\PYZus{}oil}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}yr}\PY{p}{,} \PY{n}{fake\PYZus{}oil}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{salmon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normal Dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}yr}\PY{p}{,} \PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{teal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Real}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average Crude Oil Price (\PYZdl{} per Barrel)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Simulated and Real Oil Prices}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{roundedo} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{roundedn} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{barrel} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{roundedo}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{barrel}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{n}{roundedn}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{fake\PYZus{}oil}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{barrel}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{(}\PY{n}{roundedo}\PY{p}{,} \PY{n}{roundedn}\PY{p}{)}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Real}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normal Dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Real Average Oil Prices Compared to Normal Dist Sampling}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average Oil Price in \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The correlation between real and fake oil prices is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fake\PYZus{}oil}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{fake\PYZus{}oil}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normal Dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{oilco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Real}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normal Dist Oil Prices and Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Emissions of CO2 (by kt)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average Crude Oil Price (\PYZdl{} per Barrel)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(} \PY{n}{loc} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{corr} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n}{rank} \PY{o}{=} \PY{l+m+mi}{0}
+          
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+              \PY{n}{new\PYZus{}corr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fake\PYZus{}oil}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{op} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{fake\PYZus{}oil}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{n}{new\PYZus{}rank} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{op}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OIL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{k}{if}\PY{p}{(}\PY{n}{new\PYZus{}corr} \PY{o}{\PYZgt{}} \PY{n}{corr}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{corr} \PY{o}{=} \PY{n}{new\PYZus{}corr}
+              \PY{k}{if}\PY{p}{(}\PY{n}{new\PYZus{}rank} \PY{o}{\PYZgt{}} \PY{n}{rank}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{rank} \PY{o}{=} \PY{n}{new\PYZus{}rank}
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The highest correlation in 10000 fake oil samples to emissions is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{corr}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The highest rank correlation in 10000 oil fake samples to emissions is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rank}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The mean oil price is: \$ 49.76
+The standard deviation of oil prices is: \$ 34.18
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The correlation between real and fake oil prices is: -0.027724162814853872
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The highest correlation in 10000 fake oil samples to emissions is: 0.3058259009925603
+The highest rank correlation in 10000 oil fake samples to emissions is: 0.35916305916305924
+
+    \end{Verbatim}
+
+    There is also little to no correlation between a randomly generated
+dataset of oil prices (using the mean and standard deviation of the real
+oil price dataset), and the real oil price dataset. The correlations
+between a normal distribution of fake oil prices and CO2 emissions is
+very weak but it is close to the real dataset. There is a good
+possibility that oil prices are not related to CO2 emissions.
+
+In the histogram, we can see that most real prices were around \$25-50.
+The fake dataset had negative values unlike the real dataset. If I had
+access to todays data this would have been false because the oil price
+went below zero a few weeks ago in real life.
+
+Oil prices are not random but normal distribution datasets created
+randomly using the mean and standard deviation of the real dataset has a
+similar correlation to emissions as the real dataset. This leads to
+believe that there is not a relationship or a very weak relationship
+between oil prices and carbon emissions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}793}]:} \PY{n}{predictive\PYZus{}model} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{dx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{e1} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{dx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{40}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{p1} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{dx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{40}\PY{p}{]}\PY{p}{]}
+          \PY{n}{e2} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{dx}\PY{p}{[}\PY{l+m+mi}{40}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{p2} \PY{o}{=} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{dx}\PY{p}{[}\PY{l+m+mi}{40}\PY{p}{:}\PY{p}{]}\PY{p}{]}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{e1}\PY{p}{,} \PY{n}{predictive\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{e1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{e2}\PY{p}{,} \PY{n}{predictive\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{e2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{emissions}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{US CO2 Emissions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions in kt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r\PYZca{}2 value is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{predictive\PYZus{}model}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{e1}\PY{p}{,} \PY{n}{p1}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r\PYZca{}2 value is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{predictive\PYZus{}model}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{e2}\PY{p}{,} \PY{n}{p2}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{predictive\PYZus{}model2} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{dx2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{e12} \PY{o}{=} \PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{dx2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{40}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{p12} \PY{o}{=} \PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{dx2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{40}\PY{p}{]}\PY{p}{]}
+          \PY{n}{e22} \PY{o}{=} \PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{dx2}\PY{p}{[}\PY{l+m+mi}{40}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{p22} \PY{o}{=} \PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{dx2}\PY{p}{[}\PY{l+m+mi}{40}\PY{p}{:}\PY{p}{]}\PY{p}{]}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{e12}\PY{p}{,} \PY{n}{predictive\PYZus{}model2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{e12}\PY{p}{)}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{e22}\PY{p}{,} \PY{n}{predictive\PYZus{}model2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{e22}\PY{p}{)}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{salmon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{USGDP}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{US GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP in Billions of \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r\PYZca{}2 value is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{predictive\PYZus{}model2}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{e12}\PY{p}{,} \PY{n}{p12}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r\PYZca{}2 value is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{predictive\PYZus{}model2}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{e22}\PY{p}{,} \PY{n}{p22}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+r\^{}2 value is: 0.8075439885440945
+r\^{}2 value is: 0.7060556874112285
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+r\^{}2 value is: 0.8853436555704386
+r\^{}2 value is: 0.8672223372291155
+
+    \end{Verbatim}
+
+    Both datasets have a strong linear regression and a high r\^{}2 value
+for similar time periods. The test data has lower scores than the
+training data but they are still strong. There is a good chance of a
+linear relationship between CO2 emissions, GDP and the time frame.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}696}]:} \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{5}
+          
+          \PY{n}{GDP\PYZus{}CO2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{test\PYZus{}val} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{n}{shuffled} \PY{o}{=} \PY{n}{gdpco2}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{shuffled}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{lav} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{GDP\PYZus{}CO2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{shuffled}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{lav}\PY{p}{]}\PY{p}{,} \PY{n}{shuffled}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{lav}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TRAINED:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{both} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{GDP\PYZus{}CO2}\PY{p}{)}
+          \PY{n}{splits} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array\PYZus{}split}\PY{p}{(}\PY{n}{both}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+          
+          \PY{n}{x\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{model\PYZus{}0} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}0}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}\PY{p}{)}    
+          \PY{n}{test\PYZus{}val}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model\PYZus{}0}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{p}{)}
+          
+          \PY{n}{x\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{model\PYZus{}1} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}1}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}\PY{p}{)}    
+          \PY{n}{test\PYZus{}val}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model\PYZus{}1}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{p}{)}
+          
+          \PY{n}{x\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{model\PYZus{}2} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}2}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}\PY{p}{)}    
+          \PY{n}{test\PYZus{}val}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model\PYZus{}2}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{p}{)}
+          
+          \PY{n}{x\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{model\PYZus{}3} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}3}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}\PY{p}{)}    
+          \PY{n}{test\PYZus{}val}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model\PYZus{}3}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{p}{)}
+          
+          \PY{n}{x\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{model\PYZus{}4} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}4}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}\PY{p}{)}    
+          \PY{n}{test\PYZus{}val}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model\PYZus{}4}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{p}{)}
+          
+          \PY{n}{x\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{model\PYZus{}5} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}5}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}\PY{p}{)}    
+          \PY{n}{test\PYZus{}val}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model\PYZus{}5}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{splits}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)} 
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{TEST:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{test\PYZus{}val}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Average test score:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{test\PYZus{}val}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+TRAINED:
+0.6108163736936734
+0.5975018957463345
+0.6315818208563382
+0.609512706278021
+0.6615684136897235
+0.5975018957463345
+
+TEST:
+0.6121214857142705
+0.7168468887384775
+0.5389864137652595
+0.6101843700100722
+0.2983482275105216
+0.6563413966887096
+
+Average test score: 0.5721381304045519
+
+    \end{Verbatim}
+
+    I created a k-fold cross-validation test. The r\^{}2 is high for the
+test average but it is not as high as the trained datasets. I would say
+the model is succesful. The average test score is very close to the
+trained scores.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}794}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{1}
+          
+          \PY{n}{ply\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{n}{ex} \PY{k}{for} \PY{n}{ex} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{poly\PYZus{}model} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{ply\PYZus{}x}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{55}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{brown}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{United States CO2 Emissions and GDP 1960\PYZhy{}2014}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP (Billions of \PYZdl{})}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CO2 Emissions (kt)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{poly\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{ply\PYZus{}x}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{55}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{poly\PYZus{}model}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{ply\PYZus{}x}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{55}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{gdpco2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EMISSIONS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score: 0.6186710286154812
+
+    \end{Verbatim}
+
+    The linear model visually fits the plot well and the r\^{}2 value is
+high. It would be safe to assume that an increase in GDP has a strong
+relationship with an increase in CO2 levels.
+
+    \section{Conclusion}\label{conclusion}
+
+My hypothesis about an increase in GDP correlating to an increase in CO2
+emissions for the United States was correct. However, I was wrong that
+lower oil prices would lead to an increase in CO2 emissions. CO2
+emissions appear to follow the GDP/output of the United States. This can
+be seen in the graph comparing them between 1960 to 2014 and also in the
+smaller graph depicting the Great Recession: where GDP fell and so did
+emissions. The Spearman/rank correlation would be the best way to check
+correlation between GDP and CO2 emissions because GDP in the last
+century has increased exponentially, not linearly. This gave us a rank
+correlation of 0.91. This is a very strong correlation. While
+correlation does not imply causation, there is a relationship between
+CO2 emissions and the US GDP. The United States is not the only country
+in the world but it is the 2nd largest emitter of CO2. This impacts the
+world immensely because CO2 causes Greenhouse Effects which in turn
+warms up the Earth and alters the climate. GDP may be a good indicator
+of CO2 levels but it does not have to be. Most of the CO2 is coming from
+industries and transportation. Clean industries and transportation can
+reduce CO2 levels while simultaneously increasing the GDP. Basically,
+GDP/output increase is not the cause of higher CO2 emissions but rather
+the industries and increased transportation associated with an increase
+in a country's output. There is a relationship but the GDP is not the
+cause of higher CO2 emissions. I am confident in my data because as you
+can see from testing randomized datasets, this data is not random or by
+chance. There is indeed a strong relationship between output and CO2
+levels, while there is not one between oil prices and emissions.
+
+    \subsection{Acknowledgments}\label{acknowledgments}
+
+I would like to acknowledge Stack Overflow. There were many little
+things and errors that I could not figure out by myself. However, Stack
+Overflow had the right answers. I was especially stuck on creating small
+Dataframes from a larger one with random variables. This post
+-\textgreater{}
+https://stackoverflow.com/questions/54730276/how-to-randomly-split-a-dataframe-into-several-smaller-dataframes
+helped me greatly. I would also like to thank Professor Mimno for his
+lecture recordings which were very helpful.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
